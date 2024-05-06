@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "advising.js": "^0.0.10",
-    "deposit.js": "^0.0.2"
+    "deposit.js": "^0.0.2",
+    "mysql2": "^3.9.7"
   }
 }
