@@ -1,0 +1,13 @@
+{
+  "name": "glasssearch",
+  "version": "0.0.1",
+  "description": "Node search engine.",
+  "main": "index.js",
+  "repository": "git@github.com:leoely/glasssearch.git",
+  "author": "Leo Ely",
+  "license": "MIT",
+  "dependencies": {
+    "advising.js": "^0.0.10",
+    "deposit.js": "^0.0.2"
+  }
+}
