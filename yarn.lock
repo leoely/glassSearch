@@ -2192,10 +2192,10 @@ denque@^2.1.0:
   resolved "https://registry.yarnpkg.com/denque/-/denque-2.1.0.tgz#e93e1a6569fb5e66f16a3c2a2964617d349d6ab1"
   integrity sha512-HVQE3AAb/pxF8fQAoiqpvg9i3evqug3hoiwakOyZAwJm+6vZehbkYXZ0l4JxS+I3QxM97v5aaRNhj8v5oBhekw==
 
-deposit.js@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/deposit.js/-/deposit.js-0.0.2.tgz#4ae06e456b23e70b2479b52463a94ea3dcc4ddfe"
-  integrity sha512-J05k+LfuIawl8dKW5QKtM79BO9gXFB3IqJKgKe42H7txpWzsczHBF/lbc6ucUggjQmjNY3b6E+6thXsJzZyi8Q==
+deposit.js@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/deposit.js/-/deposit.js-0.0.3.tgz#95a5b8b60b77e7b27d50135c3166435ce0a1ecc7"
+  integrity sha512-IG3f82eczh8Srdw/lixeWSTzDuOK5TyroF20Td6/5S/2wooUEukW7Mn2TOlfqbjlA3k00uUXQ4HB/UlItjU2tQ==
   dependencies:
     gulp "^4.0.2"
     mysql2 "^3.5.2"

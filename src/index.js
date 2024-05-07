@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs';
-import https from 'https';
+import http from 'http';
 import { parseOption, } from 'manner.js/server';
 import '~/lib/router/documents';
 import global from '~/obj/global';
@@ -12,9 +12,7 @@ const {
   server,
 } = global;
 
-https.createServer({
-  key: fs.readFileSync('asset/glassSearch-key.pem'),
-  cert: fs.readFileSync('asset/glassSearch-cert.pem'),
+http.createServer({
 }, async (req, res) => {
   if (req.method === 'POST') {
     const router = server.match(req.url);

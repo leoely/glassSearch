@@ -11,11 +11,11 @@
     "build": "gulp build",
     "test": "jest",
     "start": "docker compose up -d",
-    "run": "yarn run build && node dist/index.js"
+    "run": "yarn run build && node dist/index.js --port 8000"
   },
   "dependencies": {
     "advising.js": "^0.0.13",
-    "deposit.js": "^0.0.2",
+    "deposit.js": "^0.0.3",
     "manner.js": "^0.0.43",
     "mysql2": "^3.9.7"
   },

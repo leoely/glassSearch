@@ -7,13 +7,29 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
+DROP TABLE IF EXISTS `path_count`;
+CREATE TABLE `path_count` (
+  `count` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `path_count` (`count`) VALUES
+(0);
+
 DROP TABLE IF EXISTS `paths`;
 CREATE TABLE `paths` (
   `id` bigint NOT NULL,
-  `paths` varchar(10) DEFAULT NULL,
+  `path` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+
+DROP TABLE IF EXISTS `word_count`;
+CREATE TABLE `word_count` (
+  `count` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+INSERT INTO `word_count` (`count`) VALUES
+(0);
 
 DROP TABLE IF EXISTS `words`;
 CREATE TABLE `words` (
@@ -24,4 +40,4 @@ CREATE TABLE `words` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2024-05-07 10:15:06
+-- 2024-05-07 14:14:31

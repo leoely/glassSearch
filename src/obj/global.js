@@ -10,7 +10,10 @@ const server = new Server({
 
 const global = {
   server,
-  texts: {},
+  paths: {},
+  words: {},
+  pathCount: {},
+  wordCount: {},
 };
 
 export default global;
