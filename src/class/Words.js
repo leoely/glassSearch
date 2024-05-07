@@ -1,10 +1,10 @@
 import Table from 'deposit.js';
 import mysqlOptions from '~/obj/mysqlOptions';
 
-class Docuemts extends Table {
+class Words extends Table {
   constructor() {
-    super('docuemts', mysqlOptions);
+    super('words', mysqlOptions);
   }
 }
 
-export default Docuemts;
+export default Words;

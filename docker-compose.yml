@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_HOST: localhost
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: depositjs
+      MYSQL_DATABASE: glassSearch
     ports:
       - 3306:3306
     volumes:
