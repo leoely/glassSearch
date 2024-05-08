@@ -8,10 +8,18 @@ const {
   server,
 } = global;
 
-function arrayToHash(array) {
+function PathArrayToHash(array) {
   const hash = {};
   array.forEach((e, i) => {
     hash[e.path] = i;
+  });
+  return hash;
+}
+
+function wordArrayToHash(array) {
+  const hash = {};
+  array.forEach((e, i) => {
+    hash[e.word] = i;
   });
   return hash;
 }
@@ -47,14 +55,16 @@ server.add('/parse/document', async (req, res) => {
   let paths;
   let pathHash;
   if (global_path_count_val !== 0) {
-    paths = global_paths_tb.select([0, global_path_count_val], ['path']);
-    pathHash = arrayToHash(paths);
+    paths = await global_paths_tb.select([0, global_path_count_val - 1], ['path']);
+    pathHash = PathArrayToHash(paths);
   }
   if (global_path_count_val === 0 || pathHash[path] === undefined) {
     await global_paths_tb.insert({ id: global_path_count_val, path, });
   }
   global.pathCount.val += 1;
   global_path_count_val += 1;
+  paths = await global_paths_tb.select([0, global_path_count_val - 1], ['path']);
+  pathHash = PathArrayToHash(paths);
   await global_path_count_tb.update({ count: global_path_count_val, });
   let words;
   let wordHash;
@@ -64,8 +74,8 @@ server.add('/parse/document', async (req, res) => {
   }
   let global_word_count_val = global.wordCount.val;
   if (global_word_count_val !== 0) {
-    words = global_words_tb.select([0, global_word_count_val], ['word']);
-    wordsHash = arrayToHash(words);
+    words = await global_words_tb.select([0, global_word_count_val - 1], ['word']);
+    wordHash = wordArrayToHash(words);
   }
   const terms = document.split(' ');
   for (let i = 0; i < terms.length; i += 1) {
@@ -85,7 +95,7 @@ server.add('/parse/document', async (req, res) => {
     } else {
       index = 0;
     }
-    if (wordHash === undefined || wordHash[word] === undefined) {
+    if (wordHash === undefined || wordHash[term] === undefined) {
       const array = new Array(index + 1);
       array[index] = 1;
       const time = array.map((e) => {
@@ -100,13 +110,13 @@ server.add('/parse/document', async (req, res) => {
       global_word_count_val += 1;
       await global_word_count_tb.update({ count: global_word_count_val, });
     } else {
-      const id = wordsHash[term];
-      const speech = await selct([id, id], ['time']);
+      const id = wordHash[term];
+      const speech = await global_words_tb.select([id, id], ['time']);
       const array = speech[0].time.split(',');
-      if (array[index] === '') {
+      if (array[index] === '' || array[index] === undefined) {
         array[index] = 1;
       } else {
-        array[index] += 1;
+        array[index] = parseInt(array[index]) + 1;
       }
       const time = array.map((e) => {
         if (e === '') {

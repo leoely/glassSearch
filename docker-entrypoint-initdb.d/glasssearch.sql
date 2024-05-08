@@ -13,7 +13,7 @@ CREATE TABLE `path_count` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `path_count` (`count`) VALUES
-(0);
+(1);
 
 DROP TABLE IF EXISTS `paths`;
 CREATE TABLE `paths` (
@@ -22,6 +22,8 @@ CREATE TABLE `paths` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO `paths` (`id`, `path`) VALUES
+(0,	'/introduce');
 
 DROP TABLE IF EXISTS `word_count`;
 CREATE TABLE `word_count` (
@@ -29,7 +31,7 @@ CREATE TABLE `word_count` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO `word_count` (`count`) VALUES
-(0);
+(2);
 
 DROP TABLE IF EXISTS `words`;
 CREATE TABLE `words` (
@@ -39,5 +41,8 @@ CREATE TABLE `words` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO `words` (`id`, `word`, `time`) VALUES
+(0,	'hello',	'1'),
+(1,	'world',	'1');
 
--- 2024-05-08 08:11:57
+-- 2024-05-08 08:57:56
