@@ -3,6 +3,7 @@ import fs from 'fs';
 import http from 'http';
 import { parseOption, } from 'manner.js/server';
 import '~/lib/router/documents';
+import '~/lib/router/words';
 import global from '~/obj/global';
 
 const [_, ...rest] = process.argv;
