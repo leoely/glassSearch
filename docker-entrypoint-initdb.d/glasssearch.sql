@@ -35,9 +35,9 @@ DROP TABLE IF EXISTS `words`;
 CREATE TABLE `words` (
   `id` bigint NOT NULL,
   `word` varchar(10) DEFAULT NULL,
-  `times` text,
+  `time` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
--- 2024-05-07 14:14:31
+-- 2024-05-08 08:11:57

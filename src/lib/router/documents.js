@@ -11,7 +11,7 @@ const {
 function arrayToHash(array) {
   const hash = {};
   array.forEach((e, i) => {
-    hash[e.hash] = i;
+    hash[e.path] = i;
   });
   return hash;
 }
@@ -55,7 +55,7 @@ server.add('/parse/document', async (req, res) => {
   }
   global.pathCount.val += 1;
   global_path_count_val += 1;
-  global_path_count_tb.update({ count: global_path_count_val, });
+  await global_path_count_tb.update({ count: global_path_count_val, });
   let words;
   let wordHash;
   if (global.wordCount.val === undefined) {
@@ -63,25 +63,61 @@ server.add('/parse/document', async (req, res) => {
     global.wordCount.val = global.wordCount.val[0].count;
   }
   let global_word_count_val = global.wordCount.val;
-  if (global_word_count_val!== 0) {
-    words = global_words_tb.select([0, global_word_count_val], ['path']);
-    wordsHash = arrayToHash(paths);
+  if (global_word_count_val !== 0) {
+    words = global_words_tb.select([0, global_word_count_val], ['word']);
+    wordsHash = arrayToHash(words);
   }
-  const words = documents.split(' ');
-  for (let i = 0; i < words.length; i += 1) {
-    const word = words[i];
+  const terms = document.split(' ');
+  for (let i = 0; i < terms.length; i += 1) {
+    let term = terms[i];
     const chars = [];
-    for (let j = 0; j < word.length; j += 1) {
-      const code = word.charCodeAt(j);
-      const char = Words.charAt(j);
-      if ((code <= 97 && code <= 122) || (code <= 65 && code <= 90)) {
+    for (let j = 0; j < term.length; j += 1) {
+      const code = term.charCodeAt(j);
+      const char = term.charAt(j);
+      if ((code >= 97 && code <= 122) || (code >= 65 && code <= 90)) {
         chars.push(char);
-        word = chars.join('').toLowerCase();
-        if (wordHash[word] === undefined) {
-        }
       }
     }
+    term = chars.join('').toLowerCase();
+    let index;
+    if (pathHash !== undefined) {
+      index = pathHash[path];
+    } else {
+      index = 0;
+    }
+    if (wordHash === undefined || wordHash[word] === undefined) {
+      const array = new Array(index + 1);
+      array[index] = 1;
+      const time = array.map((e) => {
+        if (e === '') {
+          return 0;
+        } else {
+          return e;
+        }
+      }).join(',');
+      await global_words_tb.insert({ id: global_word_count_val, word: term, time, });
+      global.wordCount.val += 1;
+      global_word_count_val += 1;
+      await global_word_count_tb.update({ count: global_word_count_val, });
+    } else {
+      const id = wordsHash[term];
+      const speech = await selct([id, id], ['time']);
+      const array = speech[0].time.split(',');
+      if (array[index] === '') {
+        array[index] = 1;
+      } else {
+        array[index] += 1;
+      }
+      const time = array.map((e) => {
+        if (e === '') {
+          return 0;
+        } else {
+          return e;
+        }
+      }).join(',');
+      await global_words_tb.update({ id, word: term, time, });
+    }
   }
-  //res.write();
-  //res.end();
+  res.write(JSON.stringify({ status: 'sucess' }));
+  res.end();
 });
