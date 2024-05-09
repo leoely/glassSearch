@@ -1,2 +1,2 @@
-# glasssearch
+# glassSearch
 Node search engine.

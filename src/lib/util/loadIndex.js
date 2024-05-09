@@ -9,7 +9,7 @@ const {
 } = global;
 
 function radixSort(list) {
-  list = list.map((e) => [parseInt(e[0]), e]);
+  list = list.map((e) => [e[0], e]);
   const bucket = new Array(10);
   while (true) {
     for (let i = 0; i < bucket.length; i += 1) {
@@ -34,7 +34,7 @@ function radixSort(list) {
     }
     const newList = [];
     for (let i = 0; i < bucket.length; i += 1) {
-      const groove = bucket[9 - i];
+      const groove = bucket[i];
       if (Array.isArray(groove)) {
         groove.forEach((e) => {
           newList.unshift(list[e]);
@@ -45,7 +45,7 @@ function radixSort(list) {
   }
   const ans = [];
   for (let i = 0; i < bucket.length; i += 1) {
-    const groove = bucket[9 - i];
+    const groove = bucket[i];
     if (Array.isArray(groove)) {
       groove.forEach((e) => {
         ans.unshift(list[e][1]);
@@ -83,17 +83,17 @@ export default async function loadIndex() {
         server.add(`/word/${word}`, async (req, res) => {
           const words = await global_words_tb.select([i, i], ['time'])
           const timeString = words[0].time;
-          let time = timeString.split(',').map((e, i) => [e, i]);
+          let time = timeString.split(',').map((e, i) => [parseInt(e), i]);
           time = radixSort(time);
-          time = time.reverse().filter((e) => {
+          time = time.filter((e) => {
             const [count] = e;
-            return parseInt(count) !== 0;
+            return count !== 0;
           });
           const routes = [];
           for (let i = 0; i < time.length; i += 1) {
             const t = time[i][1];
             const paths = await global_paths_tb.select([t, t], ['path']);
-            routes[i] = [paths[0].path, parseInt(time[i][0])];
+            routes[i] = [paths[0].path, time[i][0]];
           }
           res.write(JSON.stringify(routes));
           res.end();
