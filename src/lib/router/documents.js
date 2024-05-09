@@ -59,21 +59,23 @@ server.add('/parse/document', async (req, res) => {
     paths = await global_paths_tb.select([0, global_path_count_val - 1], ['path']);
     pathHash = PathArrayToHash(paths);
   }
+  if (global.wordCount.val === undefined) {
+    global.wordCount.val = await global_word_count_tb.select([0, 0]);
+    global.wordCount.val = global.wordCount.val[0].count;
+  }
+  let global_word_count_val = global.wordCount.val;
+  let words;
+  let wordHash;
   if (global_path_count_val === 0 || pathHash[path] === undefined) {
     await global_paths_tb.insert({ id: global_path_count_val, path, });
+    words = await global_words_tb.select([0, global_word_count_val - 1], ['word']);
+    wordHash = wordArrayToHash(words);
   }
   global.pathCount.val += 1;
   global_path_count_val += 1;
   paths = await global_paths_tb.select([0, global_path_count_val - 1], ['path']);
   pathHash = PathArrayToHash(paths);
   await global_path_count_tb.update({ count: global_path_count_val, });
-  let words;
-  let wordHash;
-  if (global.wordCount.val === undefined) {
-    global.wordCount.val = await global_word_count_tb.select([0, 0]);
-    global.wordCount.val = global.wordCount.val[0].count;
-  }
-  let global_word_count_val = global.wordCount.val;
   if (global_word_count_val !== 0) {
     words = await global_words_tb.select([0, global_word_count_val - 1], ['word']);
     wordHash = wordArrayToHash(words);
@@ -107,10 +109,12 @@ server.add('/parse/document', async (req, res) => {
         }
       }).join(',');
       await global_words_tb.insert({ id: global_word_count_val, word: term, time, });
-      await loadIndex();
       global.wordCount.val += 1;
       global_word_count_val += 1;
+      words = await global_words_tb.select([0, global_word_count_val - 1], ['word']);
+      wordHash = wordArrayToHash(words);
       await global_word_count_tb.update({ count: global_word_count_val, });
+      await loadIndex();
     } else {
       const id = wordHash[term];
       const speech = await global_words_tb.select([id, id], ['time']);

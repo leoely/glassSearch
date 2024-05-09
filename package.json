@@ -17,7 +17,8 @@
     "advising.js": "^0.0.14",
     "deposit.js": "^0.0.3",
     "manner.js": "^0.0.43",
-    "mysql2": "^3.9.7"
+    "mysql2": "^3.9.7",
+    "node-fetch": "2"
   },
   "devDependencies": {
     "@babel/cli": "^7.20.7",
