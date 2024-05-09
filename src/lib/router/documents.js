@@ -2,6 +2,7 @@ import Words from '~/class/table/Words';
 import Paths from '~/class/table/Paths';
 import PathCount from '~/class/table/PathCount';
 import WordCount from '~/class/table/WordCount';
+import loadIndex from '~/lib/util/loadIndex';
 import global from '~/obj/global';
 
 const {
@@ -106,6 +107,7 @@ server.add('/parse/document', async (req, res) => {
         }
       }).join(',');
       await global_words_tb.insert({ id: global_word_count_val, word: term, time, });
+      await loadIndex();
       global.wordCount.val += 1;
       global_word_count_val += 1;
       await global_word_count_tb.update({ count: global_word_count_val, });

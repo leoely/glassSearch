@@ -14,7 +14,7 @@
     "run": "yarn run build && node dist/index.js --port 8000"
   },
   "dependencies": {
-    "advising.js": "^0.0.13",
+    "advising.js": "^0.0.14",
     "deposit.js": "^0.0.3",
     "manner.js": "^0.0.43",
     "mysql2": "^3.9.7"

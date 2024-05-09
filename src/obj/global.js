@@ -1,7 +1,7 @@
 import { default as Server, }from 'advising.js';
 
 const server = new Server({
-  threshold: 0.5,
+  threshold: 0.1,
   bond: 5,
   logLevel: 3,
   logInterval: 5,

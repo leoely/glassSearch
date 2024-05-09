@@ -1351,10 +1351,10 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-advising.js@^0.0.13:
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/advising.js/-/advising.js-0.0.13.tgz#fcbea30ea19c98b47c4211e7962e70a972a9f61a"
-  integrity sha512-rAuACtxRj+mhNZ6otaIAmHt9+FXOgW2jw+QvdAqL/mZjJr996xqTst4pyrBOenHn9i5zjw+e2yKpj4sJjrwvYg==
+advising.js@^0.0.14:
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/advising.js/-/advising.js-0.0.14.tgz#df5ee0595304a6fd89a5e71b4ab9eff7f544b823"
+  integrity sha512-0daOfsXp64BpuxFjx/IuEhHy3MjJFZ78y/irkyREslDiEedwSoSM4OfShOI2ka3xln25t9BF+OfuHGy3fEvDzA==
   dependencies:
     gulp "^4.0.2"
 
